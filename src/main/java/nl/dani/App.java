@@ -1,5 +1,6 @@
 package nl.dani;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import nl.dani.chllg1.Elf;
 import nl.dani.chllg1.InputReader;
@@ -83,5 +84,46 @@ public class App
         }
 
         System.out.println("day 2: challenge 2: " + score);
+
+        ArrayList<String> rucksacks = reader.readGames("input3.txt");
+
+        System.out.println(((int) 'z') - 96); //char - 96 l of -64 u
+        int total = 0;
+        for (int i = 0; i < rucksacks.size(); i++){
+            // System.out.println(rucksacks.get(i));
+            int length = rucksacks.get(i).length();
+            char[] left = rucksacks.get(i).substring(0, length / 2).toCharArray();
+            char[] right = rucksacks.get(i).substring(length / 2).toCharArray();
+            
+            Arrays.sort(left);
+            Arrays.sort(right);
+
+            // System.out.println(right.length + " " + right.length);
+            boolean found = false;
+            for (int n = 0; n < left.length; n++){
+                for (int t = 0; t < right.length; t++){
+                    if (left[n] == right[t] && !found){
+                        found = true;
+                        if (((int) left[n]) >= 97){
+                            total += (int) left[n] - 96;
+                        } else {
+                            total += (int) left[n] - 38;
+                        } 
+                        break;
+                    }
+                }
+                // if (left[n] == right[n]){
+                //     if (((int) left[n]) >= 97){
+                //         total += (int) left[n] - 96;
+                //     } else {
+                //         total += (int) left[n] - 38;
+                //     }
+                // }
+            }
+
+            // System.out.println(left + " " + right);
+        }
+
+        System.out.println("day 3; challenge 1: " + total);
     }
 }
