@@ -90,7 +90,6 @@ public class App
         System.out.println(((int) 'z') - 96); //char - 96 l of -64 u
         int total = 0;
         for (int i = 0; i < rucksacks.size(); i++){
-            // System.out.println(rucksacks.get(i));
             int length = rucksacks.get(i).length();
             char[] left = rucksacks.get(i).substring(0, length / 2).toCharArray();
             char[] right = rucksacks.get(i).substring(length / 2).toCharArray();
@@ -98,7 +97,6 @@ public class App
             Arrays.sort(left);
             Arrays.sort(right);
 
-            // System.out.println(right.length + " " + right.length);
             boolean found = false;
             for (int n = 0; n < left.length; n++){
                 for (int t = 0; t < right.length; t++){
@@ -109,21 +107,34 @@ public class App
                         } else {
                             total += (int) left[n] - 38;
                         } 
-                        break;
+                        // break;
                     }
                 }
-                // if (left[n] == right[n]){
-                //     if (((int) left[n]) >= 97){
-                //         total += (int) left[n] - 96;
-                //     } else {
-                //         total += (int) left[n] - 38;
-                //     }
-                // }
             }
-
-            // System.out.println(left + " " + right);
         }
 
         System.out.println("day 3; challenge 1: " + total);
+
+        total = 0;
+        // boolean found = false;
+        for (int i = 0; i < rucksacks.size(); i+=3){
+            boolean found = false;
+            for (int n = 0; n < rucksacks.get(i).length(); n++){
+                for (int t = 0; t < rucksacks.get(i+1).length(); t++){
+                    for (int e = 0; e < rucksacks.get(i+2).length(); e++){
+                        if ((rucksacks.get(i).charAt(n) == rucksacks.get(i+1).charAt(t)) && (rucksacks.get(i).charAt(n) == rucksacks.get(i+2).charAt(e) && !found)){
+                            found = true;
+                            if (((int) rucksacks.get(i).charAt(n)) >= 97){
+                                total += (int) rucksacks.get(i).charAt(n) - 96;
+                            } else {
+                                total += (int) rucksacks.get(i).charAt(n) - 38;
+                            }     
+                        }
+                    }
+                }
+            }
+        }
+
+        System.out.println("day3: challenge 2: " + total);
     }
 }
