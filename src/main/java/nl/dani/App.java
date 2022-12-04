@@ -136,5 +136,40 @@ public class App
         }
 
         System.out.println("day3: challenge 2: " + total);
+
+        ArrayList<String> ranges = reader.readGames("input4.txt");
+
+        System.out.println(ranges.size());
+        int encapsulatingRanges = 0;
+        int overlappingPairs = 0;
+        for (int i = 0; i < ranges.size(); i++){
+            // System.out.println(ranges.get(i));
+            String[] range = {ranges.get(i).substring(0, ranges.get(i).indexOf(',')), ranges.get(i).substring(ranges.get(i).indexOf(',') + 1)};
+            int[] leftRange = {Integer.valueOf(range[0].substring(0, range[0].indexOf('-'))), Integer.valueOf(range[0].substring(range[0].indexOf('-') + 1))};
+            int[] rightRange = {Integer.valueOf(range[1].substring(0, range[1].indexOf('-'))), Integer.valueOf(range[1].substring(range[1].indexOf('-') + 1))};
+
+            System.out.println(range[0] + " " + range[1]);
+            if ((leftRange[0] <= rightRange[0] && leftRange[1] >= rightRange[1]) || (leftRange[0] >= rightRange[0] && leftRange[1]<= rightRange[1])) {
+                // System.out.println(Integer.valueOf(range[0].substring(0, range[0].indexOf('-'))));
+                System.out.println("encapsulates");
+                encapsulatingRanges++;
+            }
+
+            if ((leftRange[0] <= rightRange[0] && leftRange[1] >= rightRange[0]) || (rightRange[0] <= leftRange[0] && rightRange[1] >= leftRange[0])){
+                overlappingPairs++;
+            }
+
+            // if (Integer.valueOf(range[0].))
+        }
+
+        System.out.println("day4: challenge 1: " + encapsulatingRanges);
+        System.out.println("day4: challenge 2: " + overlappingPairs);
     }
+
+    // private int[] getRange (String input){
+    //     System.out.println(input.substring(0, input.indexOf('-')));
+    //     // return {(int) Integer.valueOf(input.substring(0, input.indexOf('-')))}
+
+    //     return null;
+    // }
 }
