@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import nl.dani.chllg1.Elf;
 import nl.dani.chllg1.InputReader;
+import nl.dani.chllg5.CrateStack;
 
 /**
  * Hello world!
@@ -164,12 +165,102 @@ public class App
 
         System.out.println("day4: challenge 1: " + encapsulatingRanges);
         System.out.println("day4: challenge 2: " + overlappingPairs);
+
+    //     [C]         [Q]         [V]    
+    //     [D]         [D] [S]     [M] [Z]
+    //     [G]     [P] [W] [M]     [C] [G]
+    //     [F]     [Z] [C] [D] [P] [S] [W]
+    // [P] [L]     [C] [V] [W] [W] [H] [L]
+    // [G] [B] [V] [R] [L] [N] [G] [P] [F]
+    // [R] [T] [S] [S] [S] [T] [D] [L] [P]
+    // [N] [J] [M] [L] [P] [C] [H] [Z] [R]
+    //  1   2   3   4   5   6   7   8   9 
+
+        CrateStack crateStack = new CrateStack(9);
+        CrateStack crateStackClone = new CrateStack(9);
+        
+
+        char[] crates = {'N', 'R', 'G', 'P'};
+        crateStack.addStack(0, crates);
+        crateStackClone.addStack(0, crates);
+        char[] crates1 = {'J', 'T', 'B', 'L', 'F', 'G', 'D', 'C'};
+        crateStack.addStack(1, crates1);
+        crateStackClone.addStack(1, crates1);
+        char[] crates2 = {'M', 'S', 'V'};
+        crateStack.addStack(2, crates2);
+        crateStackClone.addStack(2, crates2);
+        char[] crates3 = {'L', 'S', 'R', 'C', 'Z', 'P'};
+        crateStack.addStack(3, crates3);
+        crateStackClone.addStack(3, crates3);
+        char[] crates4 = {'P', 'S', 'L', 'V', 'C', 'W', 'D', 'Q'};
+        crateStack.addStack(4, crates4);
+        crateStackClone.addStack(4, crates4);
+        char[] crates5 = {'C', 'T', 'N', 'W', 'D', 'M', 'S'};
+        crateStack.addStack(5, crates5);
+        crateStackClone.addStack(5, crates5);
+        char[] crates6 = {'H', 'D', 'G', 'W', 'P'};
+        crateStack.addStack(6, crates6);
+        crateStackClone.addStack(6, crates6);
+        char[] crates7 = {'Z', 'L', 'P', 'H', 'S', 'C', 'M', 'V'};
+        crateStack.addStack(7, crates7);
+        crateStackClone.addStack(7, crates7);
+        char[] crates8 = {'R', 'P', 'F', 'L', 'W','G', 'Z'};
+        crateStack.addStack(8, crates8);
+        crateStackClone.addStack(8, crates8);
+
+        ArrayList<String> moves = reader.readGames("input5.txt");
+
+        for (int i = 0; i < moves.size(); i++){
+            // System.out.println(moves.get(i));
+
+            int currentIndex;
+            int numMoves = Integer.valueOf(moves.get(i).substring(5, moves.get(i).indexOf('f') - 1));
+            currentIndex = moves.get(i).indexOf('f') + 1;
+            int start = Integer.valueOf(moves.get(i).substring(moves.get(i).indexOf(' ', currentIndex) + 1, moves.get(i).indexOf('t') - 1));
+            currentIndex = moves.get(i).indexOf('t') + 1;
+            int destination = Integer.valueOf(moves.get(i).substring(moves.get(i).indexOf(' ', currentIndex) + 1));
+            
+
+            // System.out.println(numMoves + " " + start + " " + destination);
+
+            for (int n = 0; n < numMoves; n++){
+                crateStack.moveCrate(start - 1, destination - 1);
+            }
+            crateStackClone.moveCrates(start - 1, destination - 1, numMoves);
+
+
+            // System.out.println(moves.get(i).indexOf('e'));
+            // int moveN = Integer.valueOf(moves.get(i).substring(moves.get(i).indexOf('e')))
+        }
+
+        System.out.println("day5: challenge 1: " + crateStack.getTopCrates());
+        System.out.println("day4: challenge 2: " + crateStackClone.getTopCrates());
+
+        // crateStack.addStack(0, crates);
+        // crateStack.addStack(1, crates1);
+        // crateStack.addStack(2, crates2);
+        // crateStack.addStack(3, crates3);
+        // crateStack.addStack(4, crates4);
+        // crateStack.addStack(5, crates5);
+        // crateStack.addStack(6, crates6);
+        // crateStack.addStack(7, crates7);
+        // crateStack.addStack(8, crates8);
+
+        // for (int i = 0; i < moves.size(); i++){
+        //     // System.out.println(moves.get(i));
+
+        //     int currentIndex;
+        //     int numMoves = Integer.valueOf(moves.get(i).substring(5, moves.get(i).indexOf('f') - 1));
+        //     currentIndex = moves.get(i).indexOf('f') + 1;
+        //     int start = Integer.valueOf(moves.get(i).substring(moves.get(i).indexOf(' ', currentIndex) + 1, moves.get(i).indexOf('t') - 1));
+        //     currentIndex = moves.get(i).indexOf('t') + 1;
+        //     int destination = Integer.valueOf(moves.get(i).substring(moves.get(i).indexOf(' ', currentIndex) + 1));
+            
+
+        //     crateStack.moveCrate(start - 1, destination - 1, numMoves);
+
+        // }
+
+        // System.out.println("day5: challenge 2: " + crateStack.getTopCrates());
     }
-
-    // private int[] getRange (String input){
-    //     System.out.println(input.substring(0, input.indexOf('-')));
-    //     // return {(int) Integer.valueOf(input.substring(0, input.indexOf('-')))}
-
-    //     return null;
-    // }
 }
