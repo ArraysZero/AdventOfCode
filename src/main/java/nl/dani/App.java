@@ -234,33 +234,46 @@ public class App
         }
 
         System.out.println("day5: challenge 1: " + crateStack.getTopCrates());
-        System.out.println("day4: challenge 2: " + crateStackClone.getTopCrates());
+        System.out.println("day5: challenge 2: " + crateStackClone.getTopCrates());
 
-        // crateStack.addStack(0, crates);
-        // crateStack.addStack(1, crates1);
-        // crateStack.addStack(2, crates2);
-        // crateStack.addStack(3, crates3);
-        // crateStack.addStack(4, crates4);
-        // crateStack.addStack(5, crates5);
-        // crateStack.addStack(6, crates6);
-        // crateStack.addStack(7, crates7);
-        // crateStack.addStack(8, crates8);
+        String datastream = reader.readGames("input6.txt").get(0);
+        // String pattern = "(?:([a-z])(?!.*\1)){4}";
+        // Pattern pattern = Pattern.compile("(?:([a-z])(?!.*\1)){4}");
 
-        // for (int i = 0; i < moves.size(); i++){
-        //     // System.out.println(moves.get(i));
+        boolean pkg = false;
+        for (int i = 0; i < datastream.length(); i++){
+            // Matcher match = pattern.matcher(datastream.substring(i, i + 4));
 
-        //     int currentIndex;
-        //     int numMoves = Integer.valueOf(moves.get(i).substring(5, moves.get(i).indexOf('f') - 1));
-        //     currentIndex = moves.get(i).indexOf('f') + 1;
-        //     int start = Integer.valueOf(moves.get(i).substring(moves.get(i).indexOf(' ', currentIndex) + 1, moves.get(i).indexOf('t') - 1));
-        //     currentIndex = moves.get(i).indexOf('t') + 1;
-        //     int destination = Integer.valueOf(moves.get(i).substring(moves.get(i).indexOf(' ', currentIndex) + 1));
-            
+            // if (match.find()){
+            //     System.out.println("day6: challenge 1: " + (i + 4));
+            //     i = datastream.length();
+            // }
 
-        //     crateStack.moveCrate(start - 1, destination - 1, numMoves);
+            String substr = datastream.substring(i, i + 4);
+            int uniquechars = 0;
+            for (int n = 3; n >= 0; n--){
+                if (substr.indexOf(substr.charAt(n)) == n){
+                    uniquechars++;
+                }
+            }
+            if (uniquechars == 4 && !pkg){
+                System.out.println("day6: challenge 1: " + (i + 4));
+                // i = datastream.length() + 4;
+                pkg = true;
+            }
 
-        // }
-
-        // System.out.println("day5: challenge 2: " + crateStack.getTopCrates());
+            String sbstr = datastream.substring(i, i + 14);
+            uniquechars = 0;
+            for (int n = 13; n >= 0; n--){
+                if (sbstr.indexOf(sbstr.charAt(n)) == n){
+                    uniquechars++;
+                }
+            }
+            if (uniquechars == 14){
+                System.out.println("day6: challenge 1: " + (i + 14));
+                i = datastream.length() + 4;
+            }
+        }
+        // System.out.println(datastream);
     }
 }
