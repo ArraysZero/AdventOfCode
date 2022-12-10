@@ -2,6 +2,7 @@ package nl.dani;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 import nl.dani.chllg1.Elf;
 import nl.dani.chllg1.InputReader;
 import nl.dani.chllg5.CrateStack;
@@ -149,10 +150,10 @@ public class App
             int[] leftRange = {Integer.valueOf(range[0].substring(0, range[0].indexOf('-'))), Integer.valueOf(range[0].substring(range[0].indexOf('-') + 1))};
             int[] rightRange = {Integer.valueOf(range[1].substring(0, range[1].indexOf('-'))), Integer.valueOf(range[1].substring(range[1].indexOf('-') + 1))};
 
-            System.out.println(range[0] + " " + range[1]);
+            // System.out.println(range[0] + " " + range[1]);
             if ((leftRange[0] <= rightRange[0] && leftRange[1] >= rightRange[1]) || (leftRange[0] >= rightRange[0] && leftRange[1]<= rightRange[1])) {
                 // System.out.println(Integer.valueOf(range[0].substring(0, range[0].indexOf('-'))));
-                System.out.println("encapsulates");
+                // System.out.println("encapsulates");
                 encapsulatingRanges++;
             }
 
@@ -274,6 +275,64 @@ public class App
                 i = datastream.length() + 4;
             }
         }
-        // System.out.println(datastream);
+        // System.out.println(datastream);`
+
+        ArrayList<String> terminal = reader.readGames("input7.txt");
+
+        // EFSNode root = new EFSNode();
+
+        ArrayList<String> scope = new ArrayList();
+        scope.add("/");
+        Map<String, Integer> folderSize = new HashMap<>();
+        folderSize.put("/", 0);
+
+        // folderSize.put("kut", 20);
+        // System.out.println(folderSize);
+        for (int i = 1; i < terminal.size(); i++){
+            // System.out.println(terminal.get(i));
+
+            if (terminal.get(i).startsWith("$")) {
+                if (terminal.get(i).startsWith("$ cd")) {
+                    if (terminal.get(i).substring(5).equals("..")){
+                        scope.remove(scope.size() - 1);
+                    } else {
+                        // String name = "";
+                        scope.add(scope.get(scope.size() - 1) + terminal.get(i).substring(5) + "/");
+                        String folder = scope.get(scope.size() - 1);
+                        // System.out.println(folder);
+                        folderSize.put(folder, 0);
+                        // System.out.println(folderSize);
+                    }
+                }
+            } else {
+                if (!terminal.get(i).startsWith("dir")){
+                    // System.out.println(folderSize);
+                    for (int n = 0; n < scope.size(); n++){
+                        folderSize.replace(scope.get(n), folderSize.get(scope.get(n)) + Integer.valueOf(terminal.get(i).substring(0, terminal.get(i).indexOf(" "))));
+                    }
+                }
+            }
+
+        }
+
+        int totalSize = 0;
+        int deletedDit = 700000000;
+        int spaceNeeeded = 30000000 - (70000000 - folderSize.get("/"));
+
+        for (Integer size : folderSize.values()) {
+            // System.out.println(folderSize);
+            if (size < 100000){
+                totalSize += size;
+            }
+            
+            if (size < deletedDit && size >= spaceNeeeded){
+                deletedDit = size;
+            }
+        }
+
+        System.out.println(folderSize.get("/") + " " + deletedDit);
+
+        System.out.println("day7: challenge 1: " + totalSize);
+        System.out.println("day7: challenge 2: " + deletedDit);
     }
 }
