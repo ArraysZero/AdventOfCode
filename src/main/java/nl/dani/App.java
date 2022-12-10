@@ -334,5 +334,131 @@ public class App
 
         System.out.println("day7: challenge 1: " + totalSize);
         System.out.println("day7: challenge 2: " + deletedDit);
+
+        ArrayList<String> rows = reader.readGames("input8.txt");
+
+        int[][] treeGrid = new int[rows.size()][rows.get(0).length()];
+        int columns = rows.get(0).length();
+        int row = rows.size();
+        // System.out.println(row);
+
+        for (int i = 0; i < row; i++){
+            for (int n = 0; n < columns; n++){
+                treeGrid[i][n] = Integer.valueOf(rows.get(i).substring(n, n + 1));
+                // System.out.print(treeGrid[i][n] + " ");
+            }
+        }
+
+        int visibleTrees = 0;
+        int scenicScore = 0;
+        for (int i = 0; i < row; i++){
+            System.out.println(" ");
+            for (int n = 0; n < columns; n++) {
+                // boolean visible = false;
+                boolean ttl = false;
+                boolean ttr = false;
+                boolean ttu = false;
+                boolean ttb = false;
+                int distanceL = 0;
+                int distanceR = 0;
+                int distanceU = 0;
+                int distanceB = 0;
+
+
+                // System.out.print(treeGrid[i][n] + " -> ");
+                for (int t = i - 1; t >= 0; t--){
+                    // System.out.print(treeGrid[t][n] + " | ");
+                    if (treeGrid[i][n] > treeGrid[t][n]) {
+                        distanceU++;
+                    } else {
+                        // System.out.println(n +" "+ i + " " + treeGrid[i][n] + " " + treeGrid[t][n] + " left");
+                        t = 0;
+                        distanceU++;
+                    }
+                }
+                // System.out.print("distance = " + distanceU);
+
+                for (int t = i + 1; t < row; t++){
+                    // System.out.print(treeGrid[t][n] + " | ");
+                    if (treeGrid[i][n] > treeGrid[t][n]) {
+                        distanceB++;
+                    } else {
+                        t = row;
+                        distanceB++;
+                    }
+                }
+                // System.out.print("distance = " + distanceB + "\n");
+
+                for (int t = n - 1; t >= 0; t--){
+                    // System.out.print(treeGrid[i][n] + " | ");
+                    if (treeGrid[i][n] > treeGrid[i][t]) {
+                        distanceL++;
+                    } else {
+                        t = 0;
+                        distanceL++;
+                    }
+                }
+                // System.out.print("distance = " + distanceL + "\n");
+
+                for (int t = n + 1; t < columns; t++){
+                    // System.out.print(treeGrid[i][n] + " | ");
+                    if (treeGrid[i][n] > treeGrid[i][t]) {
+                        distanceR++;
+                    } else {
+                        t = columns;
+                        distanceR++;
+                    }
+                }
+                // System.out.print("distance = " + distanceR + "\n");
+
+                System.out.println(treeGrid[i][n] + " -> " + (distanceU + " " + distanceB + " " + distanceL + " " + distanceR) + " | " + (distanceU * distanceB * distanceL * distanceR));
+                if ((distanceU * distanceB * distanceL * distanceR) > scenicScore) {
+                    // System.out.println(scenicScore);
+                    scenicScore = (distanceU * distanceB * distanceL * distanceR);
+                }
+                
+                for (int t = 0; t < row; t++){
+                    // System.out.print(t);
+
+                    if (treeGrid[i][n] <= treeGrid[t][n]){
+                        // System.out.print(t + " = " + treeGrid[i][n] + " " + treeGrid[t][n] + " | ");
+                        if (t < i){
+                            ttu = true;
+                        } else  if (t > i) {
+                            ttb = true;
+                        }
+                    }
+                }
+
+                // System.out.println(" ");
+
+                for (int t = 0; t < columns; t++){
+                    if (treeGrid[i][n] <= treeGrid[i][t]){
+                        // System.out.print(t + " = " + treeGrid[i][n] + " " + treeGrid[t][n] + " | ");
+                        if (t < n){
+                            ttl = true;
+                        } else  if (t > n) {
+                            ttr = true;
+                            // System.out.print(treeGrid[i][n] + " " + i + " " + n + " " + t + " rechts | ");
+                        }
+                    }
+                }
+
+                if (!ttu || !ttb || !ttl || !ttr){
+                    visibleTrees++;
+                    // System.out.print(treeGrid[i][n] + " " + i + " " + n);
+                } else if (ttr){
+                    // System.out.print(treeGrid[i][n] + " " + i + " " + n);
+                }
+            }
+        }
+
+        // System.out.println(visibleTrees);
+
+        // visibleTrees += (row + columns) + 1;
+
+        System.out.println("day8: challenge 1: " + visibleTrees);
+        System.out.println("day8: challenge 2: " + scenicScore);
+
     }
 }
