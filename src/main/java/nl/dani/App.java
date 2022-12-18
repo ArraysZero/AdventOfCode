@@ -471,96 +471,199 @@ public class App {
 		System.out.println("day8: challenge 2: " + scenicScore);
 
 		ArrayList<String> ropeMoves = reader.readGames("input9.txt");
+		int[][] knots = { { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 },
+				{ 0, 0 } };
 
-		// System.out.println(ropeMoves.size());
-		int headXP = 0;
-		int headYP = 0;
-		int tailXP = 0;
-		int tailYP = 0;
-
-		ArrayList<String> TailPos = new ArrayList();
+		ArrayList<String> pos2 = new ArrayList<>();
+		pos2.add("0 0");
+		ArrayList<String> pos10 = new ArrayList<>();
+		pos10.add("0 0");
 
 		for (int i = 0; i < ropeMoves.size(); i++) {
-			// System.out.println(" (" + headXP + ", " + headYP + ") -> (" + tailXP + ", " +
-			// tailYP + ")");
+			// System.out.println(ropeMoves.get(i));
 
-			// System.out.print("\n" + ropeMoves.get(i));
-			String direction = ropeMoves.get(i).substring(0, ropeMoves.get(i).indexOf(" "));
-			int times = Integer.valueOf(ropeMoves.get(i).substring(ropeMoves.get(i).indexOf(" ") + 1));
-			// System.out.print(direction + "|" + times);
+			String direction = ropeMoves.get(i).substring(0, 2);
+			int steps = Integer.valueOf(ropeMoves.get(i).substring(2));
+			// System.out.println(direction + "| " + steps);
 
-			for (int t = 0; t < times; t++) {
-				System.out.println(" (" + headXP + ", " + headYP + ") -> (" + tailXP + ", " +
-						tailYP + ")");
-				// System.out.println(t);
-
+			for (int n = 0; n < steps; n++) {
 				switch (direction) {
-					case "R":
-						headXP++;
+					case "R ":
+						knots[0][0]++;
+						// System.out.println("R");
 						break;
-					case "L":
-						headXP--;
+					case "L ":
+						knots[0][0]--;
+						// System.out.println("L");
 						break;
-					case "U":
-						headYP++;
+					case "U ":
+						knots[0][1]++;
+						// System.out.println("U");
 						break;
-					case "D":
-						headYP--;
+					case "D ":
+						knots[0][1]--;
+						// System.out.println("D");
 						break;
 					default:
 						break;
 				}
 
-				if (((headXP - tailXP) > 1 || (headXP - tailXP) < -1)
-						|| ((headYP - tailYP) < -1 || (headYP - tailYP) > 1)) {
-					// tailXP += (headXP - tailXP) / 2;
-					// }
-					// if ((headYP - tailYP) > 1 || (headYP - tailYP) < 1) {
-					// tailYP += (headYP - tailYP) / 2;
-					switch (direction) {
-						case "R":
-							// System.out.println("tail moves right" + (tailXP - headXP));
-							tailXP = headXP - 1;
-							tailYP = headYP;
-							break;
-						case "L":
-							tailXP = headXP + 1;
-							tailYP = headYP;
-							break;
-						case "U":
-							tailXP = headXP;
-							tailYP = headYP - 1;
-							break;
-						case "D":
-							tailXP = headXP;
-							tailYP = headYP + 1;
-							break;
-						default:
-							break;
+				for (int j = 1; j < knots.length; j++) {
+					// System.out.println("controle " + n + " | " + j);
+					if (knots[j - 1][0] - knots[j][0] == 2 && knots[j - 1][1] - knots[j][1] == 2) {
+						knots[j][0] = knots[j - 1][0] - 1;
+						knots[j][1] = knots[j - 1][1] - 1;
+					} else if (knots[j - 1][0] - knots[j][0] == 2 && knots[j - 1][1] - knots[j][1] == -2) {
+						knots[j][0] = knots[j - 1][0] - 1;
+						knots[j][1] = knots[j - 1][1] + 1;
+					} else if (knots[j - 1][0] - knots[j][0] == -2 && knots[j - 1][1] - knots[j][1] == 2) {
+						knots[j][0] = knots[j - 1][0] + 1;
+						knots[j][1] = knots[j - 1][1] - 1;
+					} else if (knots[j - 1][0] - knots[j][0] == -2 && knots[j - 1][1] - knots[j][1] == -2) {
+						knots[j][0] = knots[j - 1][0] + 1;
+						knots[j][1] = knots[j - 1][1] + 1;
+					} else if (knots[j - 1][0] - knots[j][0] == 2) {
+						// System.out.println("beweging naar rechts " + j);
+						knots[j][0] = knots[j - 1][0] - 1;
+						knots[j][1] = knots[j - 1][1];
+					} else if (knots[j][0] - knots[j - 1][0] == 2) {
+						knots[j][0] = knots[j - 1][0] + 1;
+						knots[j][1] = knots[j - 1][1];
+					} else if (knots[j - 1][1] - knots[j][1] == 2) {
+						knots[j][0] = knots[j - 1][0];
+						knots[j][1] = knots[j - 1][1] - 1;
+					} else if (knots[j][1] - knots[j - 1][1] == 2) {
+						knots[j][0] = knots[j - 1][0];
+						knots[j][1] = knots[j - 1][1] + 1;
 					}
 				}
 
-				String currentTailPos = tailXP + " " + tailYP;
-				boolean newPos = true;
-				for (int n = 0; n < TailPos.size(); n++) {
-					if (TailPos.get(n).equals(currentTailPos)) {
-						newPos = false;
-						n = TailPos.size() + 1; // end the loop
+				String pos = knots[1][0] + " " + knots[1][1];
+				boolean newPos = false;
+				for (int j = 0; j < pos2.size(); j++) {
+					if (pos2.get(j).equals(pos)) {
+						newPos = true;
 					}
 				}
-
-				// System.out.println(currentTailPos);
-				if (newPos) {
-					TailPos.add(currentTailPos);
+				if (!newPos) {
+					// System.out.println("niuewe pos");
+					pos2.add(pos);
 				}
-				// System.out.println(direction + " (" + headXP + ", " + headYP + ") -> " +
-				// currentTailPos + "\n");
+
+				pos = knots[9][0] + " " + knots[9][1];
+				newPos = false;
+				for (int j = 0; j < pos10.size(); j++) {
+					if (pos10.get(j).equals(pos)) {
+						newPos = true;
+					}
+				}
+				if (!newPos) {
+					// System.out.println(pos);
+					pos10.add(pos);
+				}
+
+				for (int index = 0; index < knots.length; index++) {
+					// System.out.print(" (" + knots[index][0] + " | " + knots[index][1] + ") ");
+				}
+				// System.out.println("");
 			}
 		}
 
-		System.out.println(ropeMoves.size() + " " + TailPos.size());
-		for (int i = 0; i < TailPos.size(); i++) {
-			// System.out.println(TailPos.get(i));
-		}
+		System.out.println("day9: challenge 1: " + pos2.size());
+		System.out.println("day9: challenge 2: " + pos10.size());
+		// // System.out.println(ropeMoves.size());
+		// int headXP = 0;
+		// int headYP = 0;
+		// int tailXP = 0;
+		// int tailYP = 0;
+
+		// ArrayList<String> TailPos = new ArrayList();
+
+		// for (int i = 0; i < ropeMoves.size(); i++) {
+		// // System.out.println(" (" + headXP + ", " + headYP + ") -> (" + tailXP + ",
+		// " +
+		// // tailYP + ")");
+
+		// // System.out.print("\n" + ropeMoves.get(i));
+		// String direction = ropeMoves.get(i).substring(0, ropeMoves.get(i).indexOf("
+		// "));
+		// int times =
+		// Integer.valueOf(ropeMoves.get(i).substring(ropeMoves.get(i).indexOf(" ") +
+		// 1));
+		// // System.out.print(direction + "|" + times);
+
+		// for (int t = 0; t < times; t++) {
+		// System.out.println(" (" + headXP + ", " + headYP + ") -> (" + tailXP + ", " +
+		// tailYP + ")");
+		// // System.out.println(t);
+
+		// switch (direction) {
+		// case "R":
+		// headXP++;
+		// break;
+		// case "L":
+		// headXP--;
+		// break;
+		// case "U":
+		// headYP++;
+		// break;
+		// case "D":
+		// headYP--;
+		// break;
+		// default:
+		// break;
+		// }
+
+		// if (((headXP - tailXP) > 1 || (headXP - tailXP) < -1)
+		// || ((headYP - tailYP) < -1 || (headYP - tailYP) > 1)) {
+		// // tailXP += (headXP - tailXP) / 2;
+		// // }
+		// // if ((headYP - tailYP) > 1 || (headYP - tailYP) < 1) {
+		// // tailYP += (headYP - tailYP) / 2;
+		// switch (direction) {
+		// case "R":
+		// // System.out.println("tail moves right" + (tailXP - headXP));
+		// tailXP = headXP - 1;
+		// tailYP = headYP;
+		// break;
+		// case "L":
+		// tailXP = headXP + 1;
+		// tailYP = headYP;
+		// break;
+		// case "U":
+		// tailXP = headXP;
+		// tailYP = headYP - 1;
+		// break;
+		// case "D":
+		// tailXP = headXP;
+		// tailYP = headYP + 1;
+		// break;
+		// default:
+		// break;
+		// }
+		// }
+
+		// String currentTailPos = tailXP + " " + tailYP;
+		// boolean newPos = true;
+		// for (int n = 0; n < TailPos.size(); n++) {
+		// if (TailPos.get(n).equals(currentTailPos)) {
+		// newPos = false;
+		// n = TailPos.size() + 1; // end the loop
+		// }
+		// }
+
+		// // System.out.println(currentTailPos);
+		// if (newPos) {
+		// TailPos.add(currentTailPos);
+		// }
+		// // System.out.println(direction + " (" + headXP + ", " + headYP + ") -> " +
+		// // currentTailPos + "\n");
+		// }
+		// }
+
+		// System.out.println(ropeMoves.size() + " " + TailPos.size());
+		// for (int i = 0; i < TailPos.size(); i++) {
+		// // System.out.println(TailPos.get(i));
+		// }
 	}
 }
