@@ -51,10 +51,14 @@ int DayTwo::puzzleOne() {
 
                 // std::cout << "red: " << redVal << " green: ";
 
-                if (redVal <= 12 && greenVal <= 13 && blueVal <= 14) {
-                    std::cout << currentGameID << " ";
-                    sum += currentGameID;
-                }
+                //puzzle 1
+                // if (redVal <= 12 && greenVal <= 13 && blueVal <= 14) {
+                //     std::cout << currentGameID << " ";
+                //     sum += currentGameID;
+                // }
+
+                //puzzle 2
+                sum += (redVal * greenVal * blueVal);
 
                 std::cout << "reading game id \n";
                 break;
