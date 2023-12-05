@@ -1,6 +1,7 @@
 #include <iostream>
 #include "includes/reader.cpp"
 #include "includes/days/day_1.cpp"
+#include "includes/days/day_2.cpp"
 
 // int function() {
 // 	return 1;
@@ -12,9 +13,13 @@ int main() {
 
 	Reader reader;
 
-	DayOne dayOne(reader.read("input/day1.txt"));
+	// DayOne dayOne(reader.read("input/day1.txt"));
 
-	dayOne.puzzleOne();
+	// dayOne.puzzleOne();
+
+	DayTwo dayTwo(reader.read("input/day2.txt"));
+
+	dayTwo.puzzleOne();
 
 	// string input = reader.read("input/test.txt");
 
