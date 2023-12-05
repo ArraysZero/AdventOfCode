@@ -7,6 +7,8 @@
 // 	return 1;
 // }
 
+using namespace std;
+
 int main() {
 	// int num = '9' - '0';
 	// std::cout << "Hello World! \n" << num;
@@ -19,7 +21,8 @@ int main() {
 
 	DayTwo dayTwo(reader.read("input/day2.txt"));
 
-	dayTwo.puzzleOne();
+	// dayTwo.puzzleOne();
+	cout << dayTwo.puzzleOne();
 
 	// string input = reader.read("input/test.txt");
 
