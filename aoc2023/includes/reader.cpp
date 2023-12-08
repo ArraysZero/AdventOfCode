@@ -11,6 +11,7 @@ class Reader {
     public:
         Reader ();
         string read (string);
+        int getLines(string);
 };
 
 Reader::Reader () {
@@ -30,4 +31,18 @@ string Reader::read(string file) {
     }
 
     return result;
+}
+
+int Reader::getLines(string file) {
+    int lines = 0;
+
+    newfile.open(file, ios::in);
+    if (newfile.is_open()) {
+        string row;
+        while (getline(newfile, row)) {
+            lines++;
+        }
+        newfile.close();
+    }
+    return lines;
 }

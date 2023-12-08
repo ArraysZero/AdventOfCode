@@ -2,6 +2,7 @@
 #include "includes/reader.cpp"
 #include "includes/days/day_1.cpp"
 #include "includes/days/day_2.cpp"
+#include "includes/days/day_3.cpp"
 
 // int function() {
 // 	return 1;
@@ -15,20 +16,20 @@ int main() {
 
 	Reader reader;
 
+	//day 1 puzzles
 	// DayOne dayOne(reader.read("input/day1.txt"));
 
 	// dayOne.puzzleOne();
 
-	DayTwo dayTwo(reader.read("input/day2.txt"));
+	//day 2 puzzles
+	// DayTwo dayTwo(reader.read("input/day2.txt"));
 
-	// dayTwo.puzzleOne();
-	cout << dayTwo.puzzleOne();
+	// cout << dayTwo.puzzleOne();
 
-	// string input = reader.read("input/test.txt");
-
-	// Reader reader (5);
-
-	// std::cout << "\n\n" << reader.getVar();
+	//day 3 puzzles
+	DayThree dayThree(reader.read("input/day3.txt"), reader.getLines("input/day3.txt"));
+	
+	cout << dayThree.solution();
 
 	return 0;
 }
