@@ -138,7 +138,7 @@ public class App {
 			}
 		}
 
-		System.out.println("day3: challenge 2: " + total);
+		System.out.println("day 3: challenge 2: " + total);
 
 		ArrayList<String> ranges = reader.readGames("input4.txt");
 
@@ -171,8 +171,8 @@ public class App {
 			// if (Integer.valueOf(range[0].))
 		}
 
-		System.out.println("day4: challenge 1: " + encapsulatingRanges);
-		System.out.println("day4: challenge 2: " + overlappingPairs);
+		System.out.println("day 4: challenge 1: " + encapsulatingRanges);
+		System.out.println("day 4: challenge 2: " + overlappingPairs);
 
 		// [C] [Q] [V]
 		// [D] [D] [S] [M] [Z]
@@ -240,8 +240,8 @@ public class App {
 			// Integer.valueOf(moves.get(i).substring(moves.get(i).indexOf('e')))
 		}
 
-		System.out.println("day5: challenge 1: " + crateStack.getTopCrates());
-		System.out.println("day5: challenge 2: " + crateStackClone.getTopCrates());
+		System.out.println("day 5: challenge 1: " + crateStack.getTopCrates());
+		System.out.println("day 5: challenge 2: " + crateStackClone.getTopCrates());
 
 		String datastream = reader.readGames("input6.txt").get(0);
 		// String pattern = "(?:([a-z])(?!.*\1)){4}";
@@ -339,8 +339,8 @@ public class App {
 
 		// System.out.println(folderSize.get("/") + " " + deletedDit);
 
-		System.out.println("day7: challenge 1: " + totalSize);
-		System.out.println("day7: challenge 2: " + deletedDit);
+		System.out.println("day 7: challenge 1: " + totalSize);
+		System.out.println("day 7: challenge 2: " + deletedDit);
 
 		ArrayList<String> rows = reader.readGames("input8.txt");
 
@@ -467,8 +467,8 @@ public class App {
 
 		// visibleTrees += (row + columns) + 1;
 
-		System.out.println("day8: challenge 1: " + visibleTrees);
-		System.out.println("day8: challenge 2: " + scenicScore);
+		System.out.println("day 8: challenge 1: " + visibleTrees);
+		System.out.println("day 8: challenge 2: " + scenicScore);
 
 		ArrayList<String> ropeMoves = reader.readGames("input9.txt");
 		int[][] knots = { { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 },
@@ -556,8 +556,8 @@ public class App {
 			}
 		}
 
-		System.out.println("day9: challenge 1: " + pos2.size());
-		System.out.println("day9: challenge 2: " + pos10.size());
+		System.out.println("day 9: challenge 1: " + pos2.size());
+		System.out.println("day 9: challenge 2: " + pos10.size());
 
 		// lets gooo
 
