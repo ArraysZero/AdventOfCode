@@ -564,6 +564,6 @@ public class App {
 		CathodeRayTube cathodeRayTube = new CathodeRayTube(reader.readLines("input10"));
 
 		System.out.println("day 10: challenge 1: " + cathodeRayTube.sumStrenghtCycle());
-		// System.out.println("day10: challenge 2: " + pos10.size());
+		System.out.println("day 10: challenge 2: \n" + cathodeRayTube.drawScreen()); 
 	}
 }

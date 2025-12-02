@@ -49,4 +49,47 @@ public class CathodeRayTube {
 
         return sum;
     }
+    
+    public String drawScreen() {
+        int eoi = 0;
+        int xRegister = 1;
+        int cycle = 0;
+        int instruction = 0;
+        String screen = "";
+        
+        if (instructions[instruction].contains("addx")){
+            eoi = 2;
+        }
+
+        for (int row  = 0; row < 6; row++) {
+            for  (int pos = 0; pos < 40; pos++){
+            if (cycle == eoi) {
+                if (instructions[instruction].contains("addx")) {
+                    var chg = Integer.parseInt(instructions[instruction].split(" ")[1]);
+                    xRegister += chg;
+                }
+                
+                instruction++;
+                if (instructions[instruction].contains("noop")) {
+                    eoi++;
+                } else {
+                    eoi += 2;
+                }
+            }
+            
+            cycle++;
+                if (pos - xRegister <= 1 && pos - xRegister >= -1) {
+                    screen = screen + "#";
+                } else {
+                    screen = screen + ".";
+                }
+            }
+
+            screen = screen + "\n";
+
+        }
+        
+        // System.out.println(screen);
+        return screen;
+    }
 }
