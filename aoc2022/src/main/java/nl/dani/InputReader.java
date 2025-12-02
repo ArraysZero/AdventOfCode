@@ -1,11 +1,11 @@
-package nl.dani.chllg1;
+package nl.dani;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
+import nl.dani.chllg1.Elf;
 
 
 public class InputReader {
@@ -20,7 +20,17 @@ public class InputReader {
     }
 
     public ArrayList<String> readGames(String fileName){
-        return getGames(getFileAsIOStream(fileName));
+        return getLines(getFileAsIOStream(fileName));
+    }
+    
+    public String[] readLines(String fileName) {
+        return getLines(getFileAsIOStream(fileName)).toArray(new String[0]);
+        
+        // for (int i = 0; i < lines.size(); i++) {
+        //     // do something
+        // }
+        
+        // return null;
     }
 
     private InputStream getFileAsIOStream(final String fileName) 
@@ -35,7 +45,7 @@ public class InputReader {
         return ioStream;
     }
 
-    private ArrayList<String> getGames(InputStream is) {
+    private ArrayList<String> getLines(InputStream is) {
         ArrayList<String> games = new ArrayList();
 
         try (InputStreamReader isr = new InputStreamReader(is); 

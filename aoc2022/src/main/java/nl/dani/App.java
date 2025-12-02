@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import nl.dani.chllg1.Elf;
-import nl.dani.chllg1.InputReader;
+import nl.dani.chllg10.CathodeRayTube;
 import nl.dani.chllg5.CrateStack;
 
 /**
@@ -559,9 +559,11 @@ public class App {
 		System.out.println("day 9: challenge 1: " + pos2.size());
 		System.out.println("day 9: challenge 2: " + pos10.size());
 
-		// lets gooo
+		// challenge 10
+		// 
+		CathodeRayTube cathodeRayTube = new CathodeRayTube(reader.readLines("input10"));
 
-		// System.out.println("day10: challenge 1: " + pos2.size());
+		System.out.println("day 10: challenge 1: " + cathodeRayTube.sumStrenghtCycle());
 		// System.out.println("day10: challenge 2: " + pos10.size());
 	}
 }
